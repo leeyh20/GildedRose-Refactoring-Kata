@@ -4,8 +4,27 @@ from src.gilded_rose import GildedRose, Item
 
 class AgedBrieTest(unittest.TestCase):
 
+
+    def test_should_decrease_sell_in_by_1_when_sell_in_date_is_more_than_zero(self):
+        items = [Item("Aged Brie", 2, 20)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        self.assertEqual(1, items[0].sell_in)
+
+    def test_should_decrease_sell_in_by_1_when_sell_in_date_is_less_than_zero(self):
+        items = [Item("Aged Brie", -5, 20)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        self.assertEqual(-6, items[0].sell_in)
+
     def test_should_increase_quality_by_1_when_sell_in_date_is_more_than_zero(self):
         items = [Item("Aged Brie", 2, 20)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        self.assertEqual(21, items[0].quality)
+
+    def test_should_increase_quality_by_1_when_sell_in_date_is_one(self):
+        items = [Item("Aged Brie", 1, 20)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         self.assertEqual(21, items[0].quality)
